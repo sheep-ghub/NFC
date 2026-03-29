@@ -49,7 +49,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function loadPersonalInfo() {
     document.getElementById('fullName').textContent = personalInfo.fullName;
     document.getElementById('title').textContent = personalInfo.title;
-    document.getElementById('phone').innerHTML = `<a href="tel:${personalInfo.phone}">${personalInfo.phone}</a>`;
+    document.getElementById('phone').href = `tel:${personalInfo.phone}`;
+    document.getElementById('phone').textContent = personalInfo.phone;
     document.getElementById('email').innerHTML = `<a href="mailto:${personalInfo.email}">${personalInfo.email}</a>`;
     document.getElementById('github').href = personalInfo.github;
     document.getElementById('gunsLol').href = personalInfo.GunsLol;
