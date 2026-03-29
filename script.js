@@ -49,13 +49,13 @@ function loadPersonalInfo() {
     document.getElementById('title').textContent = personalInfo.title;
     document.getElementById('phone').innerHTML = `<a href="tel:${personalInfo.phone}">${personalInfo.phone}</a>`;
     document.getElementById('email').innerHTML = `<a href="mailto:${personalInfo.email}">${personalInfo.email}</a>`;
+    document.getElementById('github').href = personalInfo.github;
     document.getElementById('gunsLol').href = personalInfo.GunsLol;
     document.getElementById('location').textContent = personalInfo.location;
     document.getElementById('bioText').textContent = personalInfo.bio;
     document.getElementById('profileImage').src = personalInfo.profileImage;
     
     // Sosyal medya linkleri
-    document.getElementById('github').href = personalInfo.github;
     document.getElementById('instagram').href = personalInfo.instagram;
     document.getElementById('steam').href = personalInfo.steam;
     document.getElementById('spotify').href = personalInfo.spotify;
@@ -165,10 +165,10 @@ function setup3DEffect() {
     });
 }
 
-// Mouse trail efekti - optimize edilmiş
+// Mouse trail efekti - meteor alev hüzmesi
 function setupMouseTrail() {
     let lastTrailTime = 0;
-    const trailInterval = 30; // 30ms'de bir trail oluştur - daha sık
+    const trailInterval = 20; // 20ms'de bir trail oluştur - daha yoğun
     
     document.addEventListener('mousemove', (e) => {
         const currentTime = Date.now();
@@ -180,15 +180,15 @@ function setupMouseTrail() {
     }, { passive: true });
 }
 
-// Mouse trail oluştur
+// Mouse trail oluştur - meteor efekti
 function createMouseTrail(x, y) {
     const trail = document.createElement('div');
     trail.className = 'mouse-trail';
-    trail.style.left = (x - 3) + 'px'; // Merkezleme
-    trail.style.top = (y - 3) + 'px';   // Merkezleme
+    trail.style.left = (x - 10) + 'px'; // Merkezleme (20px/2)
+    trail.style.top = (y - 10) + 'px';   // Merkezleme (20px/2)
     document.body.appendChild(trail);
     
-    // 0.6 saniye sonra kaldır - daha kısa süre
+    // 0.6 saniye sonra kaldır
     setTimeout(() => {
         trail.remove();
     }, 600);
