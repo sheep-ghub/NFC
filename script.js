@@ -145,7 +145,7 @@ function createRain() {
 
 // 3D mouse efekti - anlık ve ters yön
 function setup3DEffect() {
-    const elements = document.querySelectorAll('.profile-img, .clock-indicator, .card-body h1, .card-body p, .contact-item, .social-link, .save-contact-btn, .bio-container h2, .bio-text p, .skills-section h3, .skill-item, .footer');
+    const elements = document.querySelectorAll('.profile-img, .clock-indicator, .card-body h1, .card-body p, .contact-item, .social-link, .bio-container h2, .bio-text p, .skills-section h3, .skill-item, .reference-section, .reference-link, .footer');
     
     function update3DEffect(e) {
         const mouseX = e.clientX;
@@ -224,7 +224,7 @@ function setupGyroscopeEffect() {
     }
     
     function startGyroscope() {
-        const elements = document.querySelectorAll('.profile-img, .clock-indicator, .card-body h1, .card-body p, .contact-item, .social-link, .save-contact-btn, .bio-container h2, .bio-text p, .skills-section h3, .skill-item, .footer');
+        const elements = document.querySelectorAll('.profile-img, .clock-indicator, .card-body h1, .card-body p, .contact-item, .social-link, .bio-container h2, .bio-text p, .skills-section h3, .skill-item, .reference-section, .reference-link, .footer');
         
         function handleOrientation(e) {
             const { beta, gamma } = e;
