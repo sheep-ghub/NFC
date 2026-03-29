@@ -35,6 +35,12 @@ document.addEventListener('DOMContentLoaded', function() {
     createRain();
     // 3D mouse efekti
     setup3DEffect();
+    // Custom cursor ve glow trail (sadece desktop)
+    if (!window.DeviceOrientationEvent) {
+        setupCustomCursor();
+    }
+    // Mobile gyroscope efekti
+    setupGyroscopeEffect();
 });
 
 // Kişisel bilgileri yükle
@@ -130,7 +136,8 @@ function createRain() {
 
 // 3D mouse efekti
 function setup3DEffect() {
-    const elements = document.querySelectorAll('[style*="preserve-3d"]');
+    // Tüm 3D elementleri seç
+    const elements = document.querySelectorAll('.profile-img, .clock-indicator, .card-body h1, .card-body p, .contact-item, .social-link, .save-contact-btn, .bio-container h2, .bio-text p, .skills-section h3, .skill-item');
     
     document.addEventListener('mousemove', (e) => {
         const mouseX = e.clientX;
@@ -141,8 +148,12 @@ function setup3DEffect() {
         const rotateX = (mouseY - centerY) / centerY * 10;
         const rotateY = (centerX - mouseX) / centerX * 10;
         
-        elements.forEach(element => {
-            element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        elements.forEach((element, index) => {
+            // Her elemente farklı hızlarda etki yap
+            const delay = index * 0.02;
+            setTimeout(() => {
+                element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            }, delay * 1000);
         });
     });
     
@@ -152,6 +163,100 @@ function setup3DEffect() {
             element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
         });
     });
+}
+
+// Custom cursor ve glow trail
+function setupCustomCursor() {
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
+    
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        // Glow trail oluştur
+        createGlowTrail(mouseX, mouseY);
+    });
+    
+    // Cursor animasyonu
+    function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.1;
+        cursorY += (mouseY - cursorY) * 0.1;
+        
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+        
+        requestAnimationFrame(animateCursor);
+    }
+    
+    animateCursor();
+    
+    // Mouse sayfadan ayrıldığında cursor'u gizle
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+    });
+    
+    document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+    });
+}
+
+// Glow trail oluştur
+function createGlowTrail(x, y) {
+    const trail = document.createElement('div');
+    trail.className = 'glow-trail';
+    trail.style.left = x + 'px';
+    trail.style.top = y + 'px';
+    document.body.appendChild(trail);
+    
+    // 1 saniye sonra kaldır
+    setTimeout(() => {
+        trail.remove();
+    }, 1000);
+}
+
+// Mobile gyroscope efekti
+function setupGyroscopeEffect() {
+    if (!window.DeviceOrientationEvent) {
+        return;
+    }
+    
+    // iOS için izin iste
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission()
+            .then(response => {
+                if (response === 'granted') {
+                    startGyroscope();
+                }
+            })
+            .catch(console.error);
+    } else {
+        // Android ve diğerleri
+        startGyroscope();
+    }
+    
+    function startGyroscope() {
+        const elements = document.querySelectorAll('.profile-img, .clock-indicator, .card-body h1, .card-body p, .contact-item, .social-link, .save-contact-btn, .bio-container h2, .bio-text p, .skills-section h3, .skill-item');
+        
+        window.addEventListener('deviceorientation', (e) => {
+            const { beta, gamma } = e; // beta: ön-arka eğim, gamma: sağ-sol eğim
+            
+            // Değerleri sınırla (maksimum 10 derece)
+            const rotateX = Math.max(-10, Math.min(10, beta / 10));
+            const rotateY = Math.max(-10, Math.min(10, gamma / 10));
+            
+            elements.forEach((element, index) => {
+                const delay = index * 0.02;
+                setTimeout(() => {
+                    element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                }, delay * 1000);
+            });
+        });
+    }
 }
 
 
