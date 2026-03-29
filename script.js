@@ -9,6 +9,9 @@ const personalInfo = {
     GunsLol: "https://guns.lol/_sheep_",
     github: "https://github.com/sheep-ghub",
     instagram: "https://instagram.com/cde:.07",
+    steam: "https://steamcommunity.com/id/ArcBurst/",
+    spotify: "https://open.spotify.com/user/31akqle3ptbnlhfqkhz4dtwc65fi?si=2881847f61454bf9",
+    bio: "Antalya OSB Bölgesinde 9. Sınıf Makine Bölümü Meslek Öğrencisiyim. Aynı Zamanda RC Hobilerine, Yazılıma Ve Makinelere İlgim Var. Kendimi Geliştirmek İçin Çeşitli Projeler Yapıyorum.",
     profileImage: "profileimage/ben.jpg"
 };
 
@@ -19,52 +22,35 @@ const skills = [
     { icon: "fas fa-database", name: "CNC Developing" },
 ];
 
-// Deneyimler
-const experiences = [
-    {
-        date: "2020 - Günümüz",
-        position: "Mevcut Pozisyon",
-        company: "Şirket Adı",
-        description: "Açıklama ve sorumluluklarınız"
-    },
-    {
-        date: "2018 - 2020",
-        position: "Önceki Pozisyon",
-        company: "Önceki Şirket",
-        description: "Önceki işinizin açıklaması"
-    },
-    {
-        date: "2016 - 2018",
-        position: "İlk Pozisyon",
-        company: "İlk Şirket",
-        description: "Kariyer başlangıcınız"
-    }
-];
 
 // Sayfa yüklendiğinde çalışacak fonksiyonlar
 document.addEventListener('DOMContentLoaded', function() {
     loadPersonalInfo();
     loadSkills();
-    loadExperiences();
     setupEventListeners();
     // Saati güncelle
     updateClock();
     setInterval(updateClock, 1000);
+    // Yağmur animasyonunu başlat
+    createRain();
 });
 
 // Kişisel bilgileri yükle
 function loadPersonalInfo() {
     document.getElementById('fullName').textContent = personalInfo.fullName;
     document.getElementById('title').textContent = personalInfo.title;
-    document.getElementById('phone').textContent = personalInfo.phone;
-    document.getElementById('email').textContent = personalInfo.email;
+    document.getElementById('phone').innerHTML = `<a href="tel:${personalInfo.phone}">${personalInfo.phone}</a>`;
+    document.getElementById('email').innerHTML = `<a href="mailto:${personalInfo.email}">${personalInfo.email}</a>`;
     document.getElementById('gunsLol').href = personalInfo.GunsLol;
     document.getElementById('location').textContent = personalInfo.location;
+    document.getElementById('bioText').textContent = personalInfo.bio;
     document.getElementById('profileImage').src = personalInfo.profileImage;
     
     // Sosyal medya linkleri
     document.getElementById('github').href = personalInfo.github;
     document.getElementById('instagram').href = personalInfo.instagram;
+    document.getElementById('steam').href = personalInfo.steam;
+    document.getElementById('spotify').href = personalInfo.spotify;
 }
 
 // Yetenekleri yükle
@@ -83,24 +69,6 @@ function loadSkills() {
     });
 }
 
-// Deneyimleri yükle
-function loadExperiences() {
-    const timeline = document.getElementById('timeline');
-    timeline.innerHTML = '';
-    
-    experiences.forEach(exp => {
-        const timelineItem = document.createElement('div');
-        timelineItem.className = 'timeline-item';
-        timelineItem.innerHTML = `
-            <div class="timeline-date">${exp.date}</div>
-            <div class="timeline-content">
-                <h4>${exp.position}</h4>
-                <p>${exp.company} - ${exp.description}</p>
-            </div>
-        `;
-        timeline.appendChild(timelineItem);
-    });
-}
 
 // Event listener'ları kur
 function setupEventListeners() {
@@ -134,7 +102,28 @@ function updateClock() {
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const timeString = `${hours}:${minutes}`;
-    document.getElementById('currentTime').textContent = timeString;
+    const clockElement = document.getElementById('currentTime');
+    if (clockElement) {
+        clockElement.textContent = timeString;
+    }
+}
+
+// Yağmur animasyonu oluştur
+function createRain() {
+    const rainContainer = document.getElementById('rainContainer');
+    if (!rainContainer) return;
+    
+    const dropCount = 100;
+    
+    for (let i = 0; i < dropCount; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'rain-drop';
+        drop.style.left = Math.random() * 100 + '%';
+        drop.style.animationDuration = Math.random() * 2 + 3 + 's';
+        drop.style.animationDelay = Math.random() * 2 + 's';
+        drop.style.opacity = Math.random() * 0.3 + 0.1;
+        rainContainer.appendChild(drop);
+    }
 }
 
 

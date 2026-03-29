@@ -6,15 +6,45 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 50%, #0a0a0a 100%);
     min-height: 100vh;
     color: #333;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Yağmur animasyonu */
+.rain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.rain-drop {
+    position: absolute;
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: rain-fall linear infinite;
+}
+
+@keyframes rain-fall {
+    to {
+        transform: translateY(100vh);
+    }
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 /* NFC Kartvizit Stilleri */
@@ -138,9 +168,14 @@ body {
     text-align: center;
 }
 
-.contact-item span {
-    font-size: 14px;
+.contact-item a {
     color: #555;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+    color: #606060;
 }
 
 .card-footer {
