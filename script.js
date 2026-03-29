@@ -20,6 +20,8 @@ const skills = [
     { icon: "fas fa-code", name: "Web Developing" },
     { icon: "fas fa-mobile-alt", name: "physical NFC" },
     { icon: "fas fa-database", name: "CNC Developing" },
+    { icon: "fab fa-android", name: "Android" },
+    { icon: "fab fa-linux", name: "Kali OS Programmer" },
 ];
 
 
@@ -136,7 +138,7 @@ function createRain() {
 
 // 3D mouse efekti - anlık ve ters yön
 function setup3DEffect() {
-    const elements = document.querySelectorAll('.profile-img, .clock-indicator, .card-body h1, .card-body p, .contact-item, .social-link, .save-contact-btn, .bio-container h2, .bio-text p, .skills-section h3, .skill-item');
+    const elements = document.querySelectorAll('.profile-img, .clock-indicator, .card-body h1, .card-body p, .contact-item, .social-link, .save-contact-btn, .bio-container h2, .bio-text p, .skills-section h3, .skill-item, .footer');
     
     function update3DEffect(e) {
         const mouseX = e.clientX;
@@ -215,7 +217,7 @@ function setupGyroscopeEffect() {
     }
     
     function startGyroscope() {
-        const elements = document.querySelectorAll('.profile-img, .clock-indicator, .card-body h1, .card-body p, .contact-item, .social-link, .save-contact-btn, .bio-container h2, .bio-text p, .skills-section h3, .skill-item');
+        const elements = document.querySelectorAll('.profile-img, .clock-indicator, .card-body h1, .card-body p, .contact-item, .social-link, .save-contact-btn, .bio-container h2, .bio-text p, .skills-section h3, .skill-item, .footer');
         
         function handleOrientation(e) {
             const { beta, gamma } = e;
