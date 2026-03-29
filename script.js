@@ -35,9 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
     createRain();
     // 3D mouse efekti
     setup3DEffect();
-    // Custom cursor ve glow trail (sadece desktop)
+    // Mouse trail efekti (sadece desktop)
     if (!window.DeviceOrientationEvent) {
-        setupCustomCursor();
+        setupMouseTrail();
     }
     // Mobile gyroscope efekti
     setupGyroscopeEffect();
@@ -134,28 +134,37 @@ function createRain() {
     }
 }
 
-// 3D mouse efekti
+// 3D mouse efekti - optimize edilmiş
 function setup3DEffect() {
-    // Tüm 3D elementleri seç
     const elements = document.querySelectorAll('.profile-img, .clock-indicator, .card-body h1, .card-body p, .contact-item, .social-link, .save-contact-btn, .bio-container h2, .bio-text p, .skills-section h3, .skill-item');
     
-    document.addEventListener('mousemove', (e) => {
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-        
-        const rotateX = (mouseY - centerY) / centerY * 10;
-        const rotateY = (centerX - mouseX) / centerX * 10;
-        
-        elements.forEach((element, index) => {
-            // Her elemente farklı hızlarda etki yap
-            const delay = index * 0.02;
-            setTimeout(() => {
-                element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            }, delay * 1000);
-        });
-    });
+    let ticking = false;
+    
+    function update3DEffect(e) {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                
+                const rotateX = (mouseY - centerY) / centerY * 8;
+                const rotateY = (centerX - mouseX) / centerX * 8;
+                
+                elements.forEach((element, index) => {
+                    // Daha az delay ve daha akıcı
+                    const delay = index * 0.01;
+                    element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    element.style.transition = `transform 0.1s ease-out ${delay}s`;
+                });
+                
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }
+    
+    document.addEventListener('mousemove', update3DEffect, { passive: true });
     
     // Mouse sayfadan ayrıldığında sıfırla
     document.addEventListener('mouseleave', () => {
@@ -165,61 +174,36 @@ function setup3DEffect() {
     });
 }
 
-// Custom cursor ve glow trail
-function setupCustomCursor() {
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    document.body.appendChild(cursor);
-    
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
+// Mouse trail efekti - optimize edilmiş
+function setupMouseTrail() {
+    let lastTrailTime = 0;
+    const trailInterval = 50; // 50ms'de bir trail oluştur
     
     document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+        const currentTime = Date.now();
         
-        // Glow trail oluştur
-        createGlowTrail(mouseX, mouseY);
-    });
-    
-    // Cursor animasyonu
-    function animateCursor() {
-        cursorX += (mouseX - cursorX) * 0.1;
-        cursorY += (mouseY - cursorY) * 0.1;
-        
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-        
-        requestAnimationFrame(animateCursor);
-    }
-    
-    animateCursor();
-    
-    // Mouse sayfadan ayrıldığında cursor'u gizle
-    document.addEventListener('mouseleave', () => {
-        cursor.style.opacity = '0';
-    });
-    
-    document.addEventListener('mouseenter', () => {
-        cursor.style.opacity = '1';
-    });
+        if (currentTime - lastTrailTime > trailInterval) {
+            createMouseTrail(e.clientX, e.clientY);
+            lastTrailTime = currentTime;
+        }
+    }, { passive: true });
 }
 
-// Glow trail oluştur
-function createGlowTrail(x, y) {
+// Mouse trail oluştur
+function createMouseTrail(x, y) {
     const trail = document.createElement('div');
-    trail.className = 'glow-trail';
+    trail.className = 'mouse-trail';
     trail.style.left = x + 'px';
     trail.style.top = y + 'px';
     document.body.appendChild(trail);
     
-    // 1 saniye sonra kaldır
+    // 0.8 saniye sonra kaldır
     setTimeout(() => {
         trail.remove();
-    }, 1000);
+    }, 800);
 }
 
-// Mobile gyroscope efekti
+// Mobile gyroscope efekti - optimize edilmiş
 function setupGyroscopeEffect() {
     if (!window.DeviceOrientationEvent) {
         return;
@@ -242,20 +226,30 @@ function setupGyroscopeEffect() {
     function startGyroscope() {
         const elements = document.querySelectorAll('.profile-img, .clock-indicator, .card-body h1, .card-body p, .contact-item, .social-link, .save-contact-btn, .bio-container h2, .bio-text p, .skills-section h3, .skill-item');
         
-        window.addEventListener('deviceorientation', (e) => {
-            const { beta, gamma } = e; // beta: ön-arka eğim, gamma: sağ-sol eğim
-            
-            // Değerleri sınırla (maksimum 10 derece)
-            const rotateX = Math.max(-10, Math.min(10, beta / 10));
-            const rotateY = Math.max(-10, Math.min(10, gamma / 10));
-            
-            elements.forEach((element, index) => {
-                const delay = index * 0.02;
-                setTimeout(() => {
-                    element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                }, delay * 1000);
-            });
-        });
+        let ticking = false;
+        
+        function handleOrientation(e) {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const { beta, gamma } = e;
+                    
+                    // Değerleri sınırla (maksimum 8 derece)
+                    const rotateX = Math.max(-8, Math.min(8, beta / 12));
+                    const rotateY = Math.max(-8, Math.min(8, gamma / 12));
+                    
+                    elements.forEach((element, index) => {
+                        const delay = index * 0.01;
+                        element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                        element.style.transition = `transform 0.1s ease-out ${delay}s`;
+                    });
+                    
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('deviceorientation', handleOrientation, { passive: true });
     }
 }
 
