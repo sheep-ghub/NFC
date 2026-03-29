@@ -134,34 +134,25 @@ function createRain() {
     }
 }
 
-// 3D mouse efekti - optimize edilmiş
+// 3D mouse efekti - anlık ve ters yön
 function setup3DEffect() {
     const elements = document.querySelectorAll('.profile-img, .clock-indicator, .card-body h1, .card-body p, .contact-item, .social-link, .save-contact-btn, .bio-container h2, .bio-text p, .skills-section h3, .skill-item');
     
-    let ticking = false;
-    
     function update3DEffect(e) {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                const mouseX = e.clientX;
-                const mouseY = e.clientY;
-                const centerX = window.innerWidth / 2;
-                const centerY = window.innerHeight / 2;
-                
-                const rotateX = (mouseY - centerY) / centerY * 8;
-                const rotateY = (centerX - mouseX) / centerX * 8;
-                
-                elements.forEach((element, index) => {
-                    // Daha az delay ve daha akıcı
-                    const delay = index * 0.01;
-                    element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                    element.style.transition = `transform 0.1s ease-out ${delay}s`;
-                });
-                
-                ticking = false;
-            });
-            ticking = true;
-        }
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        
+        // Ters çevrildi ve anlık yapıldı
+        const rotateX = (centerY - mouseY) / centerY * 10;
+        const rotateY = (mouseX - centerX) / centerX * 10;
+        
+        elements.forEach((element, index) => {
+            // Anlık etki, hiç delay yok
+            element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            element.style.transition = 'transform 0.05s ease-out';
+        });
     }
     
     document.addEventListener('mousemove', update3DEffect, { passive: true });
@@ -177,7 +168,7 @@ function setup3DEffect() {
 // Mouse trail efekti - optimize edilmiş
 function setupMouseTrail() {
     let lastTrailTime = 0;
-    const trailInterval = 50; // 50ms'de bir trail oluştur
+    const trailInterval = 30; // 30ms'de bir trail oluştur - daha sık
     
     document.addEventListener('mousemove', (e) => {
         const currentTime = Date.now();
@@ -193,17 +184,17 @@ function setupMouseTrail() {
 function createMouseTrail(x, y) {
     const trail = document.createElement('div');
     trail.className = 'mouse-trail';
-    trail.style.left = x + 'px';
-    trail.style.top = y + 'px';
+    trail.style.left = (x - 3) + 'px'; // Merkezleme
+    trail.style.top = (y - 3) + 'px';   // Merkezleme
     document.body.appendChild(trail);
     
-    // 0.8 saniye sonra kaldır
+    // 0.6 saniye sonra kaldır - daha kısa süre
     setTimeout(() => {
         trail.remove();
-    }, 800);
+    }, 600);
 }
 
-// Mobile gyroscope efekti - optimize edilmiş
+// Mobile gyroscope efekti - ters yön ve anlık
 function setupGyroscopeEffect() {
     if (!window.DeviceOrientationEvent) {
         return;
@@ -226,27 +217,18 @@ function setupGyroscopeEffect() {
     function startGyroscope() {
         const elements = document.querySelectorAll('.profile-img, .clock-indicator, .card-body h1, .card-body p, .contact-item, .social-link, .save-contact-btn, .bio-container h2, .bio-text p, .skills-section h3, .skill-item');
         
-        let ticking = false;
-        
         function handleOrientation(e) {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    const { beta, gamma } = e;
-                    
-                    // Değerleri sınırla (maksimum 8 derece)
-                    const rotateX = Math.max(-8, Math.min(8, beta / 12));
-                    const rotateY = Math.max(-8, Math.min(8, gamma / 12));
-                    
-                    elements.forEach((element, index) => {
-                        const delay = index * 0.01;
-                        element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                        element.style.transition = `transform 0.1s ease-out ${delay}s`;
-                    });
-                    
-                    ticking = false;
-                });
-                ticking = true;
-            }
+            const { beta, gamma } = e;
+            
+            // Ters çevrildi ve anlık yapıldı (maksimum 10 derece)
+            const rotateX = Math.max(-10, Math.min(10, -beta / 9));
+            const rotateY = Math.max(-10, Math.min(10, -gamma / 9));
+            
+            elements.forEach((element, index) => {
+                // Anlık etki, hiç delay yok
+                element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                element.style.transition = 'transform 0.05s ease-out';
+            });
         }
         
         window.addEventListener('deviceorientation', handleOrientation, { passive: true });
