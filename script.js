@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(updateClock, 1000);
     // Yağmur animasyonunu başlat
     createRain();
+    // 3D mouse efekti
+    setup3DEffect();
 });
 
 // Kişisel bilgileri yükle
@@ -124,6 +126,32 @@ function createRain() {
         drop.style.opacity = Math.random() * 0.3 + 0.1;
         rainContainer.appendChild(drop);
     }
+}
+
+// 3D mouse efekti
+function setup3DEffect() {
+    const elements = document.querySelectorAll('[style*="preserve-3d"]');
+    
+    document.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        
+        const rotateX = (mouseY - centerY) / centerY * 10;
+        const rotateY = (centerX - mouseX) / centerX * 10;
+        
+        elements.forEach(element => {
+            element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+    });
+    
+    // Mouse sayfadan ayrıldığında sıfırla
+    document.addEventListener('mouseleave', () => {
+        elements.forEach(element => {
+            element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        });
+    });
 }
 
 
