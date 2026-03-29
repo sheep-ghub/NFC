@@ -235,52 +235,48 @@ body {
     color: white;
 }
 
-/* Telefon bölünmüş buton */
+/* Telefon bölünmüş buton - ortadan ikiye */
 .phone-split {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
+    padding: 0 !important;
+    overflow: hidden;
+    border-radius: 12px;
 }
 
-.phone-number {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.phone-half, .whatsapp-half {
     flex: 1;
-}
-
-.phone-number a {
-    color: rgba(255, 255, 255, 0.9);
-    text-decoration: none;
-    font-size: 16px;
-}
-
-.phone-number a:hover {
-    color: white;
-}
-
-.whatsapp-btn {
-    background: #25D366;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+    padding: 12px 10px;
     text-decoration: none;
+    font-size: 14px;
     transition: all 0.3s ease;
 }
 
-.whatsapp-btn:hover {
-    background: #128C7E;
-    transform: scale(1.1);
-    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+.phone-half {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.whatsapp-btn i {
-    color: white !important;
-    font-size: 18px;
+.phone-half:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.whatsapp-half {
+    background: #25D366;
+    color: white;
+}
+
+.whatsapp-half:hover {
+    background: #128C7E;
+}
+
+.phone-half i, .whatsapp-half i {
+    font-size: 16px;
 }
 
 .contact-section {
