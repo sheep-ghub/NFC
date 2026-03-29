@@ -1,0 +1,459 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* NFC Kartvizit Stilleri */
+.nfc-card {
+    margin-bottom: 40px;
+}
+
+.card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    overflow: hidden;
+    border: 4px solid white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nfc-indicator {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 12px;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    backdrop-filter: blur(10px);
+}
+
+.nfc-indicator i {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.card-body {
+    padding: 30px;
+    text-align: center;
+}
+
+.card-body h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.card-body p {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.card-body #title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #667eea;
+}
+
+.card-body #company {
+    font-size: 14px;
+    font-style: italic;
+}
+
+.contact-info {
+    margin-top: 25px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.contact-item:hover {
+    background-color: #f8f9fa;
+}
+
+.contact-item i {
+    color: #667eea;
+    width: 20px;
+    text-align: center;
+}
+
+.contact-item span {
+    font-size: 14px;
+    color: #555;
+}
+
+.card-footer {
+    padding: 20px 30px 30px;
+    text-align: center;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #667eea;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.save-contact-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.save-contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Bio Bölümü Stilleri */
+.bio-section {
+    margin-bottom: 40px;
+}
+
+.bio-container {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.bio-container h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #333;
+    text-align: center;
+}
+
+.bio-text {
+    margin-bottom: 40px;
+}
+
+.bio-text p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.skills-section {
+    margin-bottom: 40px;
+}
+
+.skills-section h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.skill-item {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.skill-item:hover {
+    background: white;
+    border-color: #667eea;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.skill-item i {
+    font-size: 24px;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.skill-item span {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.experience-section h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #667eea;
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    display: flex;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.timeline-item:nth-child(odd) {
+    flex-direction: row;
+}
+
+.timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.timeline-date {
+    flex: 1;
+    padding: 20px;
+    text-align: right;
+    font-weight: 600;
+    color: #667eea;
+}
+
+.timeline-item:nth-child(even) .timeline-date {
+    text-align: left;
+}
+
+.timeline-content {
+    flex: 1;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    margin: 0 20px;
+}
+
+.timeline-content h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.timeline-content p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* NFC Bilgi Paneli */
+.nfc-info {
+    margin-bottom: 40px;
+}
+
+.info-panel {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.info-panel h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.info-panel ul {
+    list-style: none;
+    padding: 0;
+}
+
+.info-panel li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #555;
+    position: relative;
+    padding-left: 30px;
+}
+
+.info-panel li::before {
+    content: '✓';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #667eea;
+    font-weight: bold;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .bio-container {
+        padding: 20px;
+    }
+    
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .timeline::before {
+        left: 20px;
+    }
+    
+    .timeline-item {
+        flex-direction: row !important;
+        margin-left: 40px;
+    }
+    
+    .timeline-date {
+        text-align: left !important;
+        padding: 10px;
+        font-size: 14px;
+    }
+    
+    .timeline-content {
+        margin: 0 0 0 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-header {
+        padding: 20px;
+    }
+    
+    .profile-img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .card-body {
+        padding: 20px;
+    }
+    
+    .card-body h1 {
+        font-size: 20px;
+    }
+    
+    .social-links {
+        gap: 10px;
+    }
+    
+    .social-link {
+        width: 35px;
+        height: 35px;
+    }
+}

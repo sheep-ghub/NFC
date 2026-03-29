@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFC Kartvizit - Kişisel Bio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- NFC Kartvizit Bölümü -->
+        <section class="nfc-card">
+            <div class="card">
+                <div class="card-header">
+                    <div class="profile-img">
+                        <img src="https://via.placeholder.com/150" alt="Profil Fotoğrafı" id="profileImage">
+                    </div>
+                    <div class="nfc-indicator">
+                        <i class="fas fa-wifi"></i>
+                        <span>NFC Aktif</span>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <h1 id="fullName">Adınız Soyadınız</h1>
+                    <p id="title">Unvanınız</p>
+                    <p id="company">Şirket Adı</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span id="phone">+90 555 123 4567</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span id="email">email@example.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-globe"></i>
+                            <span id="website">www.websiteniz.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="location">İstanbul, Türkiye</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <div class="social-links">
+                        <a href="#" id="linkedin" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" id="twitter" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" id="github" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" id="instagram" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    
+                    <button class="save-contact-btn" id="saveContact">
+                        <i class="fas fa-user-plus"></i>
+                        Kişiyi Kaydet
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detaylı Bio Bölümü -->
+        <section class="bio-section">
+            <div class="bio-container">
+                <h2>Hakkımda</h2>
+                <div class="bio-content">
+                    <div class="bio-text">
+                        <p id="bioText">
+                            Kendinizi tanıtan kısa bir açıklama buraya gelecek. 
+                            Profesyonel geçmişiniz, uzmanlık alanlarınız ve ilgi alanlarınız hakkında bilgi verebilirsiniz.
+                        </p>
+                    </div>
+                    
+                    <div class="skills-section">
+                        <h3>Yetenekler</h3>
+                        <div class="skills-grid" id="skillsGrid">
+                            <div class="skill-item">
+                                <i class="fas fa-code"></i>
+                                <span>Web Geliştirme</span>
+                            </div>
+                            <div class="skill-item">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>Mobil Uygulama</span>
+                            </div>
+                            <div class="skill-item">
+                                <i class="fas fa-database"></i>
+                                <span>Veritabanı</span>
+                            </div>
+                            <div class="skill-item">
+                                <i class="fas fa-cloud"></i>
+                                <span>Bulut Teknolojileri</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="experience-section">
+                        <h3>Deneyim</h3>
+                        <div class="timeline" id="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date">2020 - Günümüz</div>
+                                <div class="timeline-content">
+                                    <h4>Mevcut Pozisyon</h4>
+                                    <p>Şirket Adı - Açıklama</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">2018 - 2020</div>
+                                <div class="timeline-content">
+                                    <h4>Önceki Pozisyon</h4>
+                                    <p>Şirket Adı - Açıklama</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NFC Bilgi Paneli -->
+        <section class="nfc-info">
+            <div class="info-panel">
+                <h3><i class="fas fa-info-circle"></i> NFC ile Nasıl Kullanılır?</h3>
+                <ul>
+                    <li>NFC özellikli telefonunuzu kartvizite yaklaştırın</li>
+                    <li>Otomatik olarak kişisel bilgileriniz yüklenecektir</li>
+                    <li>Kişiyi rehberinize ekleyebilirsiniz</li>
+                    <li>Sosyal medya hesaplarına hızlıca ulaşabilirsiniz</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
