@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
     min-height: 100vh;
     color: #333;
 }
@@ -38,7 +38,7 @@ body {
 }
 
 .card-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #808080 0%, #606060 100%);
     padding: 30px;
     text-align: center;
     position: relative;
@@ -60,7 +60,7 @@ body {
     object-fit: cover;
 }
 
-.nfc-indicator {
+.clock-indicator {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -105,7 +105,7 @@ body {
 .card-body #title {
     font-size: 16px;
     font-weight: 500;
-    color: #667eea;
+    color: #606060;
 }
 
 .card-body #company {
@@ -133,7 +133,7 @@ body {
 }
 
 .contact-item i {
-    color: #667eea;
+    color: #606060;
     width: 20px;
     text-align: center;
 }
@@ -163,19 +163,17 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #667eea;
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
 .social-link:hover {
-    background: #667eea;
-    color: white;
+    background: #e0e0e0;
     transform: translateY(-2px);
 }
 
 .save-contact-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #808080 0%, #606060 100%);
     color: white;
     border: none;
     padding: 12px 25px;
@@ -191,7 +189,7 @@ body {
 
 .save-contact-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 5px 15px rgba(128, 128, 128, 0.4);
 }
 
 /* Bio Bölümü Stilleri */
@@ -256,14 +254,14 @@ body {
 
 .skill-item:hover {
     background: white;
-    border-color: #667eea;
+    border-color: #606060;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .skill-item i {
     font-size: 24px;
-    color: #667eea;
+    color: #606060;
     margin-bottom: 10px;
 }
 
@@ -295,7 +293,7 @@ body {
     top: 0;
     bottom: 0;
     width: 2px;
-    background: #667eea;
+    background: #606060;
     transform: translateX(-50%);
 }
 
@@ -318,7 +316,7 @@ body {
     padding: 20px;
     text-align: right;
     font-weight: 600;
-    color: #667eea;
+    color: #606060;
 }
 
 .timeline-item:nth-child(even) .timeline-date {
@@ -391,7 +389,7 @@ body {
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    color: #667eea;
+    color: #606060;
     font-weight: bold;
 }
 

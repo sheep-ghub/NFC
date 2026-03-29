@@ -1,28 +1,22 @@
 // Kişisel Bilgiler
 const personalInfo = {
-    fullName: "Adınız Soyadınız",
-    title: "Unvanınız",
-    company: "Şirket Adı",
-    phone: "+90 555 123 4567",
-    email: "email@example.com",
-    website: "www.websiteniz.com",
-    location: "İstanbul, Türkiye",
-    bio: "Kendinizi tanıtan kısa bir açıklama buraya gelecek. Profesyonel geçmişiniz, uzmanlık alanlarınız ve ilgi alanlarınız hakkında bilgi verebilirsiniz.",
-    linkedin: "https://linkedin.com/in/profiliniz",
-    twitter: "https://twitter.com/kullaniciadiniz",
-    github: "https://github.com/kullaniciadiniz",
-    instagram: "https://instagram.com/kullaniciadiniz",
-    profileImage: "https://via.placeholder.com/150"
+    fullName: "Can Demir ERDOĞAN",
+    title: "Öğrenci",
+    phone: "+90 541 818 2334",
+    email: "candemirerdogan0077@gmail.com",
+    website: "https://github.com/sheep-ghub",
+    location: "Antalya, Türkiye",
+    GunsLol: "https://guns.lol/_sheep_",
+    github: "https://github.com/sheep-ghub",
+    instagram: "https://instagram.com/cde:.07",
+    profileImage: "profileimage/ben.jpg"
 };
 
 // Yetenekler
 const skills = [
-    { icon: "fas fa-code", name: "Web Geliştirme" },
-    { icon: "fas fa-mobile-alt", name: "Mobil Uygulama" },
-    { icon: "fas fa-database", name: "Veritabanı" },
-    { icon: "fas fa-cloud", name: "Bulut Teknolojileri" },
-    { icon: "fas fa-shield-alt", name: "Cyber Güvenlik" },
-    { icon: "fas fa-chart-line", name: "Veri Analizi" }
+    { icon: "fas fa-code", name: "Web Developing" },
+    { icon: "fas fa-mobile-alt", name: "physical NFC" },
+    { icon: "fas fa-database", name: "CNC Developing" },
 ];
 
 // Deneyimler
@@ -53,24 +47,22 @@ document.addEventListener('DOMContentLoaded', function() {
     loadSkills();
     loadExperiences();
     setupEventListeners();
-    checkNFCSupport();
+    // Saati güncelle
+    updateClock();
+    setInterval(updateClock, 1000);
 });
 
 // Kişisel bilgileri yükle
 function loadPersonalInfo() {
     document.getElementById('fullName').textContent = personalInfo.fullName;
     document.getElementById('title').textContent = personalInfo.title;
-    document.getElementById('company').textContent = personalInfo.company;
     document.getElementById('phone').textContent = personalInfo.phone;
     document.getElementById('email').textContent = personalInfo.email;
-    document.getElementById('website').textContent = personalInfo.website;
+    document.getElementById('gunsLol').href = personalInfo.GunsLol;
     document.getElementById('location').textContent = personalInfo.location;
-    document.getElementById('bioText').textContent = personalInfo.bio;
     document.getElementById('profileImage').src = personalInfo.profileImage;
     
     // Sosyal medya linkleri
-    document.getElementById('linkedin').href = personalInfo.linkedin;
-    document.getElementById('twitter').href = personalInfo.twitter;
     document.getElementById('github').href = personalInfo.github;
     document.getElementById('instagram').href = personalInfo.instagram;
 }
@@ -136,83 +128,18 @@ function setupEventListeners() {
     });
 }
 
-// NFC desteğini kontrol et
-function checkNFCSupport() {
-    if ('NDEFReader' in window) {
-        console.log('NFC desteği mevcut');
-        setupNFC();
-    } else {
-        console.log('NFC desteği mevcut değil');
-        // NFC olmayan cihazlar için alternatif yöntemler
-        setupAlternativeMethods();
-    }
+// Saati güncelle
+function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const timeString = `${hours}:${minutes}`;
+    document.getElementById('currentTime').textContent = timeString;
 }
 
-// NFC kurulumu
-async function setupNFC() {
-    try {
-        const ndef = new NDEFReader();
-        await ndef.scan();
-        
-        ndef.addEventListener("reading", ({ message, serialNumber }) => {
-            console.log("NFC kart okundu:", serialNumber);
-            showNotification("NFC kart başarıyla okundu!");
-        });
-        
-        ndef.addEventListener("error", () => {
-            console.error("NFC okuma hatası");
-            showNotification("NFC okuma hatası oluştu", "error");
-        });
-        
-    } catch (error) {
-        console.error("NFC başlatılamadı:", error);
-        showNotification("NFC başlatılamadı", "error");
-    }
-}
 
-// Alternatif yöntemler (QR kod, vCard vb.)
-function setupAlternativeMethods() {
-    // QR kod göster
-    showQRCode();
-    
-    // vCard indirme butonu ekle
-    addVCardButton();
-}
 
-// QR kod göster
-function showQRCode() {
-    const qrContainer = document.createElement('div');
-    qrContainer.className = 'qr-container';
-    qrContainer.innerHTML = `
-        <div class="qr-modal">
-            <div class="qr-content">
-                <h3>QR Kod ile Tarayın</h3>
-                <div class="qr-code">
-                    <!-- QR kod buraya gelecek -->
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.href)}" alt="QR Kod">
-                </div>
-                <button class="close-qr">Kapat</button>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(qrContainer);
-    
-    // QR kod modalını kapat
-    qrContainer.querySelector('.close-qr').addEventListener('click', function() {
-        qrContainer.remove();
-    });
-}
 
-// vCard butonu ekle
-function addVCardButton() {
-    const vCardButton = document.createElement('button');
-    vCardButton.className = 'vcard-btn';
-    vCardButton.innerHTML = '<i class="fas fa-download"></i> vCard İndir';
-    vCardButton.addEventListener('click', downloadVCard);
-    
-    document.querySelector('.card-footer').appendChild(vCardButton);
-}
 
 // Kişiyi kaydet (vCard oluştur)
 function saveContact() {
@@ -220,7 +147,7 @@ function saveContact() {
         // Web Share API kullan
         const contactData = {
             title: `${personalInfo.fullName} - Kartvizit`,
-            text: `${personalInfo.title} - ${personalInfo.company}`,
+            text: `${personalInfo.title}`,
             url: window.location.href
         };
         
@@ -255,11 +182,10 @@ function createVCard() {
     return `BEGIN:VCARD
 VERSION:3.0
 FN:${personalInfo.fullName}
-ORG:${personalInfo.company}
 TITLE:${personalInfo.title}
 TEL:${personalInfo.phone}
 EMAIL:${personalInfo.email}
-URL:${personalInfo.website}
+URL:${personalInfo.GunsLol}
 ADR:;;${personalInfo.location};;;;
 END:VCARD`;
 }
@@ -313,88 +239,6 @@ function showNotification(message, type = 'success') {
 // Animasyonlar için CSS ekle
 const style = document.createElement('style');
 style.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-    }
-    
-    .qr-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.8);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-    }
-    
-    .qr-modal {
-        background: white;
-        padding: 30px;
-        border-radius: 15px;
-        text-align: center;
-        max-width: 300px;
-    }
-    
-    .qr-modal h3 {
-        margin-bottom: 20px;
-        color: #333;
-    }
-    
-    .qr-code img {
-        max-width: 100%;
-        height: auto;
-    }
-    
-    .close-qr {
-        margin-top: 20px;
-        background: #667eea;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 8px;
-        cursor: pointer;
-    }
-    
-    .vcard-btn {
-        background: #28a745;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 20px;
-        font-size: 14px;
-        cursor: pointer;
-        margin-left: 10px;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        transition: all 0.3s ease;
-    }
-    
-    .vcard-btn:hover {
-        background: #218838;
-        transform: translateY(-2px);
-    }
 `;
 document.head.appendChild(style);
 
