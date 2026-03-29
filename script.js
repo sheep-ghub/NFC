@@ -83,8 +83,11 @@ function loadSkills() {
 
 // Event listener'ları kur
 function setupEventListeners() {
-    // Kişiyi kaydet butonu
-    document.getElementById('saveContact').addEventListener('click', saveContact);
+    // Kişiyi kaydet butonu (eğer varsa)
+    const saveContactBtn = document.getElementById('saveContact');
+    if (saveContactBtn) {
+        saveContactBtn.addEventListener('click', saveContact);
+    }
     
     // Sosyal medya linkleri
     document.querySelectorAll('.social-link').forEach(link => {
@@ -97,13 +100,16 @@ function setupEventListeners() {
         });
     });
     
-    // İletişim bilgilerine tıklandığında kopyalama
+    // İletişim bilgilerine tıklandığında kopyalama (sadece span içerenler)
     document.querySelectorAll('.contact-item').forEach(item => {
-        item.addEventListener('click', function() {
-            const text = this.querySelector('span').textContent;
-            copyToClipboard(text);
-            showNotification('Kopyalandı: ' + text);
-        });
+        const spanElement = item.querySelector('span');
+        if (spanElement) {
+            item.addEventListener('click', function() {
+                const text = spanElement.textContent;
+                copyToClipboard(text);
+                showNotification('Kopyalandı: ' + text);
+            });
+        }
     });
 }
 
